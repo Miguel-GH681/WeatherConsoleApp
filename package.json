@@ -1,0 +1,25 @@
+{
+  "name": "weather-console-app",
+  "version": "0.1.0",
+  "description": "aplicación climática",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Miguel-GH681/weather-console-app.git"
+  },
+  "author": "Alvaro González",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Miguel-GH681/weather-console-app/issues"
+  },
+  "homepage": "https://github.com/Miguel-GH681/weather-console-app#readme",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "inquire": "^0.4.8"
+  }
+}
