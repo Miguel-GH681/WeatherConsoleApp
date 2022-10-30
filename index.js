@@ -14,8 +14,18 @@ const main = async()=>{
                 const lugares = await busquedas.searchCity(city);
                 const id = await menuCuidades(lugares);
                 const lugarSeleccionado = lugares.find(l => l.id === id);
-                console.log(`Latitud: ${lugarSeleccionado.lat}`);
+                const clima = await busquedas.searchCityWeather(lugarSeleccionado.lat, lugarSeleccionado.lng);
+
+                console.log(`${'=============================='.yellow}`);
+                console.log(`${'='.yellow}    ${'Así esta el clima!!'.blue}    ${'='.yellow}`);
+                console.log(`${'=============================='.yellow}`);
+                console.log(`Ciudad: ${clima.city}`);
                 console.log(`Longitud: ${lugarSeleccionado.lng}`);
+                console.log(`Altitud: ${lugarSeleccionado.lat}`);
+                console.log(`Temperatura: ${clima.temp}`);
+                console.log(`Temperatura mínima: ${clima.temp_min}`);
+                console.log(`Temperatura máxima: ${clima.temp_max}`);
+                console.log(`Descripción: ${clima.description}`);
 
                 break;
         }
