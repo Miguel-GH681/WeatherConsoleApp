@@ -5,15 +5,22 @@ const main = async()=>{
     let opt = 0;
     const busquedas = new Busquedas();
 
+    if(busquedas.leerDb()){
+        busquedas.historial = busquedas.leerDb();
+    }
+            
     do{
         opt = await menuPrincipal();
-
-        switch(opt){
+        switch(opt){            
             case 1:
                 const city = await input();
                 const lugares = await busquedas.searchCity(city);
                 const id = await menuCuidades(lugares);
                 const lugarSeleccionado = lugares.find(l => l.id === id);
+                busquedas.agregarHistorial(lugarSeleccionado.cuidad)
+                console.log(busquedas.historial);
+                busquedas.guardarDb();
+
                 const clima = await busquedas.searchCityWeather(lugarSeleccionado.lat, lugarSeleccionado.lng);
 
                 console.log(`${'=============================='.yellow}`);
@@ -28,6 +35,8 @@ const main = async()=>{
                 console.log(`Descripción: ${clima.description}`);
 
                 break;
+            case 2:
+                console.log(busquedas.historial.forEach(c => console.log(c)));
         }
 
         await confirmacion();

@@ -1,3 +1,5 @@
+import fs from 'fs';
+
 import axios from "axios";
 import * as dotenv from "dotenv";
 dotenv.config();
@@ -5,7 +7,8 @@ dotenv.config();
 export class Busquedas{
 
     constructor(){
-        this.historial = []
+        this.historial = [];
+        this.path = './db/database.json'
     }
 
     async searchCity(lugar = ''){
@@ -60,6 +63,32 @@ export class Busquedas{
         } catch(err){
             console.log(err);
         }        
+    }
+
+    async agregarHistorial(lugar = ''){
+        if(!this.historial.includes(lugar)){
+            this.historial.unshift(lugar);   
+        }else{
+            this.historial.splice(this.historial.indexOf(lugar), 1);
+            this.historial.unshift(lugar)
+        }
+    }
+
+    guardarDb(){
+        const payload = {
+            historial: this.historial
+        }
+        fs.writeFileSync(this.path, JSON.stringify(payload));
+    }
+ 
+    leerDb(){
+        if(fs.existsSync(this.path)){
+            const obj = fs.readFileSync(this.path, {encoding: 'utf-8'});
+            const historial = JSON.parse(obj);
+            return historial.historial;
+        } else{
+            return null;
+        }
     }
 }
     
